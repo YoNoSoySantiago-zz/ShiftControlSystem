@@ -23,7 +23,7 @@ public class ShiftControler {
 						Exception e = new UserAlreadyHasShiftException();
 					}
 				}else{
-					Exception e = new UserAlreadyHasShiftException();
+					throw new UserAlreadyHasShiftException();
 				}
 						
 			}
@@ -51,9 +51,11 @@ public class ShiftControler {
 		return shift;
 	}
 	
-	public void registerUser(String name,String lastName,String documentType,String documentNumber,String locate) throws IdUserExistException{
+	public void registerUser(String name,String lastName,String documentType,String documentNumber,String locate) throws IdUserExistException {
 		for(int i =0;i<users.size();i++) {
-			if(users.get(i).getDocumentNumber() )
+			if(users.get(i).getDocumentNumber() == documentNumber ) {
+				throw new IdUserExistException();
+			}
 		}
 	}
 	
