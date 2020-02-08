@@ -36,6 +36,7 @@ public class ShiftControler {
 			}
 		}
 	}
+	//This method is to generate the next Shift in the list 
 	public Shift generateNextShift() {
 		Shift shift = userShift.get(userShift.size()-1).getShift();
 		shift.setNumber(shift.getNumber()+1);
@@ -43,7 +44,19 @@ public class ShiftControler {
 			shift.setNumber(0);
 			shift.setLetter((char) (shift.getLetter()+1));
 		}
-		shift.setShift((char)(shift.getLetter())+ Integer.toString(shift.getNumber())); 
+		if(shift.getNumber()<10) {
+			shift.setShift((char)(shift.getLetter())+ "0"+Integer.toString(shift.getNumber()).toUpperCase()); 
+		}
+		
 		return shift;
-	} 
+	}
+	
+	public void registerUser(String name,String lastName,String documentType,String documentNumber,String locate) throws IdUserExistException{
+		for(int i =0;i<users.size();i++) {
+			if(users.get(i).getDocumentNumber() )
+		}
+	}
+	
+	
 }
+
