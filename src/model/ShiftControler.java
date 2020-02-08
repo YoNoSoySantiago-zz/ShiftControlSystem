@@ -11,7 +11,7 @@ public class ShiftControler {
 	public ShiftControler() {
 		users = new ArrayList<User>();
 		userShift = new ArrayList<User>();
-		shift = new Shift(0,'A',"A00",false,true);
+		shift = new Shift("A00",false);
 	}
 	public void assignShift(String documentNumber) throws UserAlreadyHasShiftException {
 		for(int j =0;j<userShift.size();j++) {
@@ -21,7 +21,7 @@ public class ShiftControler {
 		}
 		for(int i = 0;i<users.size();i++) {
 			if(users.get(i).getDocumentNumber()==(documentNumber)) {
-				userShift.add(users.get(i))
+				userShift.add(users.get(i));
 			}
 		}
 	}

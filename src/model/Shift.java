@@ -1,20 +1,24 @@
 package model;
 
 public class Shift {
-	private int number;
-	private char letter;
 	private String shift;
-	private boolean assigned;
-	private boolean actual;
+	private boolean attended;
 	
-	public Shift(int number,char letter,String shift,boolean assigned,boolean actual) {
-		this.number = number;
-		this.letter = letter;
+	public Shift(String shift,boolean attended) {
 		this.shift = shift;
-		this.assigned = assigned;
-		this.actual = actual;
+		this.attended = attended;
+		
 	}
-	 public String getShift() {
+	 public boolean isAttended() {
+		return attended;
+	}
+	public void setAttended(boolean attended) {
+		this.attended = attended;
+	}
+	public String getShift() {
 		 return this.shift;
 	 }
+	 public String setShift() {
+		 return this.shift;
+	}
 }
