@@ -22,6 +22,9 @@ public class User {
 		this.numberPhone = numberPhone;
 		this.shift = shift;
 	}
+	public String getDocumentType() {
+		return documentType;
+	}
 	public String getNumberPhone() {
 		return numberPhone;
 	}

@@ -20,7 +20,7 @@ public class ShiftControler {
 			if(userShift.get(j).getDocumentNumber()==(documentNumber) && letterShift>= letterUser) {
 				if(letterShift== letterUser) {
 					if(shift.getNumber()>userShift.get(j).getShift().getNumber()) {
-						Exception e = new UserAlreadyHasShiftException();
+						throw new UserAlreadyHasShiftException();
 					}
 				}else{
 					throw new UserAlreadyHasShiftException();
@@ -51,13 +51,40 @@ public class ShiftControler {
 		return shift;
 	}
 	
-	public void registerUser(String name,String lastName,String documentType,String documentNumber,String locate) throws IdUserExistException {
+	public void registerUser(String name,String lastName,String documentType,String documentNumber,String locate,String numberPhone) throws IdUserExistException,ValueIsEmptyException {
 		for(int i =0;i<users.size();i++) {
-			if(users.get(i).getDocumentNumber() == documentNumber ) {
+			if(users.get(i).getDocumentNumber() == documentNumber && (users.get(i).getDocumentType() == documentType)){
 				throw new IdUserExistException();
 			}
 		}
+		if(name.isEmpty()||lastName.isEmpty()||documentType.isEmpty()||documentNumber.isEmpty()) {
+			throw new ValueIsEmptyException();
+		}
+		users.add(new User(name,lastName,documentType,documentNumber,locate,numberPhone,null));
 	}
+	public void advanceShift() {
+		int letterUser = (int)userShift.get(userShift.size()-1).getShift().getLetter();
+		int letterShift = (int)shift.getLetter();
+		if(letterShift>= letterUser) {
+			if(letterShift== letterUser) {
+				if(shift.getNumber()==userShift.get(userShift.size()-1).getShift().getNumber()) {
+					
+				}
+			}else{
+				
+			}
+			
+		}
+		shift.setNumber(shift.getNumber()+1);
+		if(shift.getNumber()>99) {
+			shift.setNumber(0);
+			shift.setLetter((char) (shift.getLetter()+1));
+		}
+		if(shift.getNumber()<10) {
+			shift.setShift((char)(shift.getLetter())+ "0"+Integer.toString(shift.getNumber()).toUpperCase()); 
+		}
+	}
+	
 	
 	
 }
