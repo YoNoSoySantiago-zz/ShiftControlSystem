@@ -13,6 +13,16 @@ public class ShiftControler {
 		userShift = new ArrayList<User>();
 		shift = new Shift('A',0,"A00",false);
 	}
+	/**
+	 *  <p> des:<p> this method allow assign a instance of Shift to a user through their identity document number
+	 *  			(the turn is formed by a letter of the alphabet and a number from 0 to 99, 
+	 *  			which go from lowest to highest always and once it goes from 99 it returns to 00 and the letter increases)
+	 *  			taking into account if the user does not have any turn over the current shift.
+	 *  <p> pre: <p>   
+	 * @param documentNumber 
+	 * @param documentType
+	 * @throws UserAlreadyHasShiftException
+	 */
 	public void assignShift(String documentNumber,String documentType) throws UserAlreadyHasShiftException {
 		for(int j =0;j<userShift.size();j++) {
 			int letterUser = (int)userShift.get(j).getShift().getLetter();
@@ -36,7 +46,11 @@ public class ShiftControler {
 			}
 		}
 	}
-	//This method is to generate the next Shift in the list 
+	//This method is to generate the next Shift in the list
+	/**
+	 * 
+	 * @return
+	 */
 	public Shift generateNextShift() {
 		if(userShift.size()>0) {
 			Shift shift = userShift.get(userShift.size()-1).getShift();
@@ -55,7 +69,17 @@ public class ShiftControler {
 		}
 		
 	}
-	
+	/**
+	 * 
+	 * @param name
+	 * @param lastName
+	 * @param documentType
+	 * @param documentNumber
+	 * @param locate
+	 * @param numberPhone
+	 * @throws IdUserExistException
+	 * @throws ValueIsEmptyException
+	 */
 	public void registerUser(String name,String lastName,String documentType,String documentNumber,String locate,String numberPhone) throws IdUserExistException,ValueIsEmptyException {
 		for(int i =0;i<users.size();i++) {
 			if(users.get(i).getDocumentNumber() == documentNumber && (users.get(i).getDocumentType() == documentType)){
@@ -73,7 +97,11 @@ public class ShiftControler {
 		}
 		users.add(new User(name,lastName,documentType,documentNumber,locate,numberPhone,null));
 	}
-	
+	/**
+	 * 
+	 * @param attended
+	 * @throws NoMoreShiftException
+	 */
 	public void advanceShift(boolean attended) throws NoMoreShiftException {	
 		if(userShift.size()>0) {
 			int letterUser = (int)userShift.get(userShift.size()-1).getShift().getLetter();
