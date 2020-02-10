@@ -73,7 +73,8 @@ public class ShiftControler {
 		}
 		users.add(new User(name,lastName,documentType,documentNumber,locate,numberPhone,null));
 	}
-	public void advanceShift() throws NoMoreShiftException {
+	
+	public void advanceShift(boolean attended) throws NoMoreShiftException {	
 		if(userShift.size()>0) {
 			int letterUser = (int)userShift.get(userShift.size()-1).getShift().getLetter();
 			int letterShift = (int)shift.getLetter();
@@ -82,13 +83,17 @@ public class ShiftControler {
 					if(shift.getNumber()==userShift.get(userShift.size()-1).getShift().getNumber()) {
 						throw new NoMoreShiftException();
 					}
+				}			
+			}
+			for(int i =0;i<userShift.size();i++) {
+				letterUser = (int)userShift.get(i).getShift().getLetter();
+				if(shift.getNumber()==userShift.get(i).getShift().getNumber()&&letterUser == letterShift) {
+					userShift.get(i).getShift().setAttended(attended);
 				}
-				
 			}
 		}else {
 			throw new NoMoreShiftException();
-		}
-		
+		}	
 		shift.setNumber(shift.getNumber()+1);
 		if(shift.getNumber()>99) {
 			shift.setNumber(0);
