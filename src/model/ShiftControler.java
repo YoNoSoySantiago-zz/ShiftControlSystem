@@ -11,7 +11,20 @@ public class ShiftControler {
 	public ShiftControler() {
 		users = new ArrayList<User>();
 		userShift = new ArrayList<User>();
-		shift = new Shift('A',0,"A00",false);
+		shift = new Shift('A',-1,"---",false);
+	}
+	public String searchUser(String documentNumber,String documentType) throws UserNoExistException {
+		String result="";
+		for(int i = 0;i<users.size();i++) {
+			if(users.get(i).getDocumentType()==documentType && users.get(i).getDocumentNumber()==documentNumber) {
+				result = users.get(i).toString();
+				break;
+			}
+		}
+		if(result == "") {
+			throw new UserNoExistException();
+		}
+		return result;
 	}
 	/**
 	 *  <p> des:<p> this method allow assign a instance of Shift to a user through their identity document number
@@ -24,6 +37,13 @@ public class ShiftControler {
 	 * @throws UserAlreadyHasShiftException
 	 */
 	public void assignShift(String documentNumber,String documentType) throws UserAlreadyHasShiftException {
+		if(userShift.size()==0) {
+			for(int i =0;i<users.size();i++) {
+				if(users.get(i).getDocumentNumber()==(documentNumber)&&users.get(i).getDocumentType()==documentType) {
+					this.shift = new Shift('A',0,"---",false); 
+				}
+			}
+		}
 		for(int j =0;j<userShift.size();j++) {
 			int letterUser = (int)userShift.get(j).getShift().getLetter();
 			int letterShift = (int)shift.getLetter();
@@ -45,6 +65,8 @@ public class ShiftControler {
 				userShift.add(user);
 			}
 		}
+		
+		
 	}
 	//This method is to generate the next Shift in the list
 	/**
@@ -56,16 +78,21 @@ public class ShiftControler {
 			Shift shift = userShift.get(userShift.size()-1).getShift();
 			shift.setNumber(shift.getNumber()+1);
 			if(shift.getNumber()>99) {
+				if(shift.getLetter()=='Z') {
+					shift.setLetter('A');
+				}else shift.setLetter((char) (shift.getLetter()+1));
+				
 				shift.setNumber(0);
-				shift.setLetter((char) (shift.getLetter()+1));
+				
 			}
 			if(shift.getNumber()<10) {
 				shift.setShift((char)(shift.getLetter())+ "0"+Integer.toString(shift.getNumber()).toUpperCase()); 
 			}
 			
+			
 			return shift;
 		}else {
-			return shift;
+			return this.shift;
 		}
 		
 	}
@@ -130,6 +157,13 @@ public class ShiftControler {
 		if(shift.getNumber()<10) {
 			shift.setShift((char)(shift.getLetter())+ "0"+Integer.toString(shift.getNumber()).toUpperCase()); 
 		}
+	}
+	public String getShift() {
+		return shift.getShift();
+	}
+	///Methods for JUnitTest
+	public ArrayList<User> getUserList(){
+		return users;
 	}
 	
 	

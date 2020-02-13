@@ -27,6 +27,7 @@ public class Main {
 		int option = s.nextInt();
 		String name="",lastName="",documentNumber="",documentType="",locate="",numberPhone="";
 		try {
+			System.out.println(shiftControler.getShift());
 			switch(option) {
 			case 0:
 				continue1 = false;
@@ -82,10 +83,11 @@ public class Main {
 					numberPhone=s.next();
 					
 				}else if(optionAux!=0){
-					System.out.println("this option is not correct so it will become a not automatically");
+					System.out.println("this option is not correct so it will become to not automatically");
 					
 				}
 				shiftControler.registerUser(name, lastName, documentType, documentNumber, locate, numberPhone);
+				System.out.println("User add correctly");
 				break;
 			case 2:
 				//throws UserAlreadyHasShiftException
@@ -115,13 +117,18 @@ public class Main {
 				
 				System.out.println("Type your document number");
 				documentNumber = s.next();
-				shiftControler.assignShift(documentNumber,documentType);
+				System.out.println(shiftControler.searchUser(documentNumber,documentType));
+				System.out.println("Type: \n1. to assign shift\n0. to Cancel");
+				optionAux =s.nextInt();
+				if(optionAux ==1) {
+					shiftControler.assignShift(documentNumber, documentType);
+				}else if(optionAux != 0) System.out.println("this option is not correct so it will become to Cancel automatically");
 				break;
 			case 3:
 				//throws NoMoreShiftException
 				System.out.println("please type \n1. if the user was attended \n0. if the user was not in the attention room");
 				optionAux = s.nextInt();
-				if(optionAux == 1&&optionAux!=0) {
+				if(optionAux == 1 && optionAux!=0) {
 					attended = true;
 				}else {
 					System.out.println("this option is not correct so it will become a not automatically");
@@ -136,6 +143,8 @@ public class Main {
 		}catch(UserAlreadyHasShiftException e) {
 			System.out.println(e.getMessage());
 		}catch(NoMoreShiftException e) {
+			System.out.println(e.getMessage());
+		}catch(UserNoExistException e) {
 			System.out.println(e.getMessage());
 		}
 		
