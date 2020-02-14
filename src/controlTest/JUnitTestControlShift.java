@@ -10,7 +10,7 @@ class JUnitTestControlShift {
 
 	@Test
 	void test() throws IdUserExistException, ValueIsEmptyException, UserNoExistException {
-		assertThrows(UserNoExistException.class, () ->sc.searchUser("1192806566", User.CC));
+		
 		
 	}
 	@Test
@@ -26,6 +26,7 @@ class JUnitTestControlShift {
 	}
 	@Test
 	public void searchUserTest() throws UserNoExistException, IdUserExistException, ValueIsEmptyException {
+		assertThrows(UserNoExistException.class, () ->sc.searchUser("1192806566", User.CC));
 		assertThrows(UserNoExistException.class, () ->sc.searchUser("45968419698", User.PS));
 		setUp1();
 		System.out.println(sc.searchUser("1192806566", User.CC));
@@ -34,18 +35,38 @@ class JUnitTestControlShift {
 		
 	}
 	@Test
+	public void assingShiftUserTest() throws IdUserExistException, ValueIsEmptyException, UserAlreadyHasShiftException {
+		setUp1();
+		setUp2();
+		setUp3();
+		setUp4();
+		setUp6();
+		setUp5();
+		System.out.println(sc.getUserShift().get(0).getShift().getShift());
+		System.out.println(sc.getUserShift().get(1).getShift().getShift());
+		System.out.println(sc.getUserShift().get(2).getShift().getShift());
+		assertTrue(sc.getUserShift().get(0).getShift().getShift()=="A00");
+		assertThrows(UserAlreadyHasShiftException.class, () -> setUp3());
+		assertTrue(sc.getUserShift().get(1).getShift().getShift()=="A01");
+	}
 	public void setUp1() throws IdUserExistException, ValueIsEmptyException {
 		sc.registerUser("Santiago", "Hurtado Solis", User.CC, "1192806566","","");
 	}
 	
 	void setUp2() throws IdUserExistException, ValueIsEmptyException {
-		sc.registerUser("Cristian", "Ortiz Castro", User.CC, "1685334868", "SanAncho", "3216179944");
+		sc.registerUser("Cristian", "Ortiz Castro", User.PS, "1685334868", "SanAncho", "3216179944");
 	}
-	void setUp3() {
-		
+	void setUp3() throws UserAlreadyHasShiftException {
+		sc.assignShift("1192806566", User.CC);
 	}
-	void setUp4() {
-		
+	void setUp4() throws UserAlreadyHasShiftException {
+		sc.assignShift("1685334868", User.PS);
+	}
+	void setUp5() throws UserAlreadyHasShiftException {
+		sc.assignShift("123456789", User.CR);
+	}
+	void setUp6() throws UserAlreadyHasShiftException, IdUserExistException, ValueIsEmptyException {
+		sc.registerUser(">Sebastian", "Moreno Solis", User.CR, "123456789","","");
 	}
 
 }

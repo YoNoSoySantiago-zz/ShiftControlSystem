@@ -8,6 +8,9 @@ public class ShiftControler {
 	private ArrayList<User> userShift;
 	private Shift shift;
 	
+	public ArrayList<User> getUserShift() {
+		return userShift;
+	}
 	public ShiftControler() {
 		users = new ArrayList<User>();
 		userShift = new ArrayList<User>();
@@ -40,31 +43,36 @@ public class ShiftControler {
 		if(userShift.size()==0) {
 			for(int i =0;i<users.size();i++) {
 				if(users.get(i).getDocumentNumber()==(documentNumber)&&users.get(i).getDocumentType()==documentType) {
-					this.shift = new Shift('A',0,"---",false); 
+					this.shift = new Shift('A',0,"A00",false);
+					User user = users.get(i);
+					user.setShift(shift);
+					userShift.add(user);
 				}
 			}
-		}
-		for(int j =0;j<userShift.size();j++) {
-			int letterUser = (int)userShift.get(j).getShift().getLetter();
-			int letterShift = (int)shift.getLetter();
-			if(userShift.get(j).getDocumentNumber()==(documentNumber) && letterShift>= letterUser && userShift.get(j).getDocumentType()==documentType) {
-				if(letterShift== letterUser) {
-					if(shift.getNumber()>userShift.get(j).getShift().getNumber()) {
+		}else {
+			for(int j =0;j<userShift.size();j++) {
+				int letterUser = (int)userShift.get(j).getShift().getLetter();
+				int letterShift = (int)shift.getLetter();
+				if(userShift.get(j).getDocumentNumber()==(documentNumber) && letterShift>= letterUser && userShift.get(j).getDocumentType()==documentType) {
+					if(letterShift== letterUser) {
+						if(shift.getNumber()>userShift.get(j).getShift().getNumber()) {
+							throw new UserAlreadyHasShiftException();
+						}
+					}else{
 						throw new UserAlreadyHasShiftException();
 					}
-				}else{
-					throw new UserAlreadyHasShiftException();
+							
 				}
-						
+			}
+			for(int i = 0;i<users.size();i++) {
+				if(users.get(i).getDocumentNumber()==(documentNumber)&&users.get(i).getDocumentType()==documentType) {
+					User user = users.get(i);
+					user.setShift(generateNextShift());
+					userShift.add(user);
+				}
 			}
 		}
-		for(int i = 0;i<users.size();i++) {
-			if(users.get(i).getDocumentNumber()==(documentNumber)&&users.get(i).getDocumentType()==documentType) {
-				User user = users.get(i);
-				user.setShift(generateNextShift());
-				userShift.add(user);
-			}
-		}
+		
 		
 		
 	}
