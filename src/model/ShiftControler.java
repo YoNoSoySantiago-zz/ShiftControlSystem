@@ -14,7 +14,7 @@ public class ShiftControler {
 	public ShiftControler() {
 		users = new ArrayList<User>();
 		userShift = new ArrayList<User>();
-		shift = new Shift('A',-1,"---",false);
+		shift = new Shift('A',0,"A00",false);
 	}
 	public String searchUser(String documentNumber,String documentType) throws UserNoExistException {
 		String result="";
@@ -40,41 +40,30 @@ public class ShiftControler {
 	 * @throws UserAlreadyHasShiftException
 	 */
 	public void assignShift(String documentNumber,String documentType) throws UserAlreadyHasShiftException {
-		if(userShift.size()==0) {
-			for(int i =0;i<users.size();i++) {
-				if(users.get(i).getDocumentNumber()==(documentNumber)&&users.get(i).getDocumentType()==documentType) {
-					this.shift = new Shift('A',0,"A00",false);
-					User user = users.get(i);
-					user.setShift(shift);
-					userShift.add(user);
-				}
-			}
-		}else {
-			for(int j =0;j<userShift.size();j++) {
-				int letterUser = (int)userShift.get(j).getShift().getLetter();
-				int letterShift = (int)shift.getLetter();
-				if(userShift.get(j).getDocumentNumber()==(documentNumber) && letterShift>= letterUser && userShift.get(j).getDocumentType()==documentType) {
-					if(letterShift== letterUser) {
-						if(shift.getNumber()>userShift.get(j).getShift().getNumber()) {
-							throw new UserAlreadyHasShiftException();
-						}
-					}else{
+		
+		for(int j =0;j<userShift.size();j++) {
+			int letterUser = (int)userShift.get(j).getShift().getLetter();
+			int letterShift = (int)shift.getLetter();
+			if(userShift.get(j).getDocumentNumber()==(documentNumber) && letterShift>= letterUser && userShift.get(j).getDocumentType()==documentType) {
+				if(letterShift== letterUser) {
+					if(shift.getNumber()>userShift.get(j).getShift().getNumber()) {		
 						throw new UserAlreadyHasShiftException();
 					}
+				}else{
+					throw new UserAlreadyHasShiftException();
+				}
 							
-				}
-			}
-			for(int i = 0;i<users.size();i++) {
-				if(users.get(i).getDocumentNumber()==(documentNumber)&&users.get(i).getDocumentType()==documentType) {
-					User user = users.get(i);
-					user.setShift(generateNextShift());
-					userShift.add(user);
-				}
 			}
 		}
-		
-		
-		
+		for(int i = 0;i<users.size();i++) {
+			if(users.get(i).getDocumentNumber()==(documentNumber)&&users.get(i).getDocumentType()==documentType) {
+				User user = users.get(i);
+				user.setShift(generateNextShift());
+				
+				userShift.add(user);
+				break;
+			}
+		}	
 	}
 	//This method is to generate the next Shift in the list
 	/**
@@ -82,8 +71,9 @@ public class ShiftControler {
 	 * @return
 	 */
 	public Shift generateNextShift() {
+		Shift shift = new Shift('A',0,"A00",false);
 		if(userShift.size()>0) {
-			Shift shift = userShift.get(userShift.size()-1).getShift();
+			shift = userShift.get(userShift.size()-1).getShift();
 			shift.setNumber(shift.getNumber()+1);
 			if(shift.getNumber()>99) {
 				if(shift.getLetter()=='Z') {
@@ -95,12 +85,14 @@ public class ShiftControler {
 			}
 			if(shift.getNumber()<10) {
 				shift.setShift((char)(shift.getLetter())+ "0"+Integer.toString(shift.getNumber()).toUpperCase()); 
+			}else {
+				shift.setShift((char)(shift.getLetter())+Integer.toString(shift.getNumber()).toUpperCase()); 
 			}
 			
 			
 			return shift;
 		}else {
-			return this.shift;
+			return shift;
 		}
 		
 	}
