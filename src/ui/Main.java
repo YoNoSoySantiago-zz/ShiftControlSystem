@@ -17,9 +17,10 @@ public class Main {
 		
 	}
 	public void showMenu() {
-		System.out.println("1. Agregar usuar\n"+"2. Registrar turno\n"+"3. Atender Turno\n"+"0. Exit");
+		System.out.println("1. add user\n"+"2. Assign shift\n"+"3. Advance shift\n"+"0. Exit");
 	}
 	public boolean start(){
+		System.out.println("Current shift: "+shiftControler.getShift());
 		@SuppressWarnings("resource")
 		Scanner s = new Scanner(System.in);
 		boolean continue1= true,attended = false;
@@ -27,7 +28,7 @@ public class Main {
 		int option = s.nextInt();
 		String name="",lastName="",documentNumber="",documentType="",locate="",numberPhone="";
 		try {
-			System.out.println(shiftControler.getShift());
+			
 			switch(option) {
 			case 0:
 				continue1 = false;
