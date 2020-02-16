@@ -4,6 +4,7 @@ import exceptions.*;
 import java.util.ArrayList;
 
 public class ShiftControler {
+	//ATRIBUTES
 	private ArrayList<User> users;
 	private ArrayList<User> userShift;
 	private Shift shift;
@@ -11,11 +12,14 @@ public class ShiftControler {
 	public ArrayList<User> getUserShift() {
 		return userShift;
 	}
+	//CONTRUCTOR
 	public ShiftControler() {
 		users = new ArrayList<User>();
 		userShift = new ArrayList<User>();
 		shift = new Shift('A',0,"A00",false,true);
 	}
+	
+	//METHODS
 	/**
 	 * This method allows you to search for a user's information to return it in a string of characters, 
 	 * the method searches for the user in the list of users and in case it is not found, throw an exception

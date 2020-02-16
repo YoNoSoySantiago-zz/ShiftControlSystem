@@ -1,10 +1,12 @@
 package model;
 
 public class User {
+	//ATRIBUTES
 	private String name;
 	private String lastName;
 	private String documentType;
 	private String documentNumber;
+	@SuppressWarnings("unused")
 	private String locate;
 	private String numberPhone;
 	private Shift shift;
@@ -14,6 +16,8 @@ public class User {
 	public static final String FIC = "foreign identity card";
 	public static final String UNKNOWN = "unknown";
 	
+	
+	//CONTRUCTOR
 	public User(String name,String lastName,String documentType,String documentNumber,String locate,String numberPhone,Shift shift) {
 		this.name = name;
 		this.lastName= lastName;
@@ -23,57 +27,22 @@ public class User {
 		this.numberPhone = numberPhone;
 		this.shift = shift;
 	}
+	
+	//GETTERS AND SETTERS
 	public String toString() {
 		String result="full: "+name+" "+lastName+"\ndocument type: "+documentType+"\nnumber Phone: "+numberPhone;
 		return result.trim();
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public String getDocumentType() {
 		return documentType;
 	}
 
-	public void setDocumentType(String documentType) {
-		this.documentType = documentType;
+	public String getName() {
+		return name;
 	}
-
 	public String getDocumentNumber() {
 		return documentNumber;
-	}
-
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
-	}
-
-	public String getLocate() {
-		return locate;
-	}
-
-	public void setLocate(String locate) {
-		this.locate = locate;
-	}
-
-	public String getNumberPhone() {
-		return numberPhone;
-	}
-
-	public void setNumberPhone(String numberPhone) {
-		this.numberPhone = numberPhone;
 	}
 
 	public Shift getShift() {

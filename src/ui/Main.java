@@ -63,7 +63,7 @@ public class Main {
 					default:
 						System.out.println("Please type a correctly");
 					}
-				}while(optionAux!=1 &&optionAux!=2 &&optionAux!=3 &&optionAux!=4 );
+				}while(optionAux<1 ||optionAux>4 );
 				System.out.println("Type the documentNumber of the user");
 				documentNumber=s.next();
 				System.out.println("Want to share your location \n1.Yes \n0.No");
@@ -113,7 +113,7 @@ public class Main {
 					default:
 						System.out.println("Please type a correctly");
 					}
-				}while(optionAux!=1 &&optionAux!=2 &&optionAux!=3 &&optionAux!=4 );
+				}while(optionAux<1 ||optionAux>4);
 				
 				System.out.println("Type your document number");
 				documentNumber = s.next();

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class JUnitTestControlShift {
-	private ShiftControler sc = new ShiftControler();
+	ShiftControler sc = new ShiftControler();
 
 	@Test
 	public void addUserTest() throws IdUserExistException, ValueIsEmptyException {
