@@ -33,7 +33,7 @@ public class ShiftControler {
 	public String searchUser(String documentNumber,String documentType) throws UserNoExistException {
 		String result="";
 		for(int i = 0;i<users.size();i++) {
-			if(users.get(i).getDocumentType()==documentType && users.get(i).getDocumentNumber()==documentNumber) {
+			if(users.get(i).getDocumentType().equals(documentType) && users.get(i).getDocumentNumber().equals(documentNumber)) {
 				result = users.get(i).toString();
 				break;
 			}
