@@ -10,11 +10,6 @@ class JUnitTestControlShift {
 	private ShiftControler sc = new ShiftControler();
 
 	@Test
-	void test() throws IdUserExistException, ValueIsEmptyException, UserNoExistException {
-		
-		
-	}
-	@Test
 	public void addUserTest() throws IdUserExistException, ValueIsEmptyException {
 		setUp1();
 		assertTrue("Santiago"==sc.getUserList().get(sc.getUserList().size()-1).getName());
