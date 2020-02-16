@@ -9,7 +9,7 @@ public class User {
 	private String numberPhone;
 	private Shift shift;
 	public static final String CC = "citizenship card";
-	public static final String CR = "civel registration";
+	public static final String CR = "civil registration";
 	public static final String PS = "passport";
 	public static final String FIC = "foreign identity card";
 	public static final String UNKNOWN = "unknown";
@@ -24,7 +24,8 @@ public class User {
 		this.shift = shift;
 	}
 	public String toString() {
-		return "full: "+name+" "+lastName+"\ndocument type: "+documentType+"\nnumber Phone: "+numberPhone;
+		String result="full: "+name+" "+lastName+"\ndocument type: "+documentType+"\nnumber Phone: "+numberPhone;
+		return result.trim();
 	}
 
 	public String getName() {

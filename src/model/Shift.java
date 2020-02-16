@@ -1,16 +1,24 @@
 package model;
 
 public class Shift {
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 	private char letter;
 	private int number;
 	private String shift;
 	private boolean attended;
+	private boolean active;
 	
-	public Shift(char letter,int number, String shift,boolean attended) {
+	public Shift(char letter,int number, String shift,boolean attended,boolean active) {
 		this.letter = letter;
 		this.number = number;
 		this.shift = shift;
 		this.attended = attended;
+		this.active = active;
 	}
 	 public boolean isAttended() {
 		return attended;
